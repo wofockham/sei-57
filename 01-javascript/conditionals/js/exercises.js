@@ -50,23 +50,23 @@ console.log( helloWorld('ko') );
 // - Call that function for a few different scores and log the result to make sure it works.
 
 const assignGrade = function (score) {
-    if (score < 50) {
-        return 'F';
-    } else if (score >= 50) {
-        return 'D';
+    if (score >= 80) {
+        return 'A';
+    } else if (score >= 70) {
+        return 'B';
     } else if (score >= 60) {
         return 'C';
-    } else if (score > 70) {
-        return 'B';
-    } else if (score > 80) {
-        return 'A';
+    } else if (score >= 50) {
+        return 'D';
+    } else {
+        return 'F';
     }
 };
 
-console.log( assignGrade('15') ); // F
-console.log( assignGrade('50') ); // D
-console.log( assignGrade('65') ); // C
-console.log( assignGrade('98') ); // A
+console.log( assignGrade(15) ); // F
+console.log( assignGrade(50) ); // D
+console.log( assignGrade(65) ); // C
+console.log( assignGrade(98) ); // A
 
 
 // ## The Pluralizer
@@ -75,4 +75,14 @@ console.log( assignGrade('98') ); // A
 // - takes 2 arguments, a noun and a number.
 // - returns the number and pluralized form, like "5 cats" or "1 dog".
 // - Call that function for a few different scores and log the result to make sure it works.
-// - Bonus: Make it handle a few collective nouns like "sheep" and "geese".
+
+const pluralize = function (noun, number) {
+    if (number === 1) {
+        return `1 ${ noun }`;
+    } else {
+        return `${ number } ${ noun }s`;
+    }
+};
+
+console.log( pluralize('cat', 5) );
+console.log( pluralize('dog', 1) );
