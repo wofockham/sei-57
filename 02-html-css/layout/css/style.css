@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap');
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #222; /* expands to #222222: #123 => #112233 */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 960px; /* poor person's lazy responsive container */
+    margin: auto; /* center */
+    background-color: #ccc;
+    padding: 1em; /* a chunky pixel */
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+nav {
+    text-align: right;
+}
+
+nav a {
+    color: green;
+}
+
+h1 {
+    text-align: center;
+    background-color: #222;
+    color: #ccc;
+    font-size: 400%;
+    padding: 0.5em;
+    text-transform: uppercase;
+}
+
+main {
+    display: inline-block;
+    width: 75%;
+}
+
+main img {
+    display: block;
+    margin: auto; /* Can't set margins on display: inline (which is the default for img) */
+}
+
+aside {
+    display: inline-block;
+    width: 21%; /* In CSS: 75% + 21% == 100% */
+    vertical-align: top;
+    background-color: #cfc;
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0px 15px 15px black;
+}
+
+aside ul {
+    padding-left: 16px;
+}
