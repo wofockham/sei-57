@@ -1,0 +1,29 @@
+body {
+    background-color: lightskyblue;
+    min-height: 9999999px;
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    background-color: white;
+    text-align: center;
+    line-height: 300px;
+}
+
+.static {
+    position: static;
+}
+
+.absolute {
+    position: absolute;
+    top: 300px;
+    right: 300px;
+}
+
+.fixed {
+    position: fixed;
+    top: 300px;
+    right: 300px;
+}
