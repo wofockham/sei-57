@@ -8,20 +8,34 @@ end
 
 # INDEX
 get '/butterflies' do
-    db = SQLite3::Database.new 'database.sqlite3'
-    db.results_as_hash = true
-    @butterflies = db.execute 'SELECT * FROM butterflies'
-    db.close
-
+    @butterflies = query_db 'SELECT * FROM butterflies'
     erb :butterflies_index
+end
+
+# NEW
+get '/butterflies/new' do
+    erb :butterflies_new
+end
+
+# CREATE
+post '/butterflies' do
+    query_db "INSERT INTO butterflies (name, family, image) VALUES ('#{ params[:name] }', '#{params[:family] }', '#{ params[:image] }')"
+    redirect to('/butterflies')
 end
 
 # SHOW
 get '/butterflies/:id' do
+    butterflies = query_db "SELECT * FROM butterflies WHERE id=#{ params[:id] }"
+    @butterfly = butterflies.first # Extract the butterfly from the array of results
+    erb :butterflies_show
+end
+
+
+def query_db(sql_statement)
+    puts sql_statement # Optional but nice to have for debugging
     db = SQLite3::Database.new 'database.sqlite3'
     db.results_as_hash = true
-    butterflies = db.execute "SELECT * FROM butterflies WHERE id=#{ params[:id] }"
-    @butterfly = butterflies.first # Extract the butterfly from the array of results
+    results = db.execute sql_statement
     db.close
-    erb :butterflies_show
+    results # implicite return
 end
