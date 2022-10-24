@@ -20,12 +20,6 @@ class Plant < ActiveRecord::Base
     has_many :butterflies
 end
 
-get '/pry' do
-    # NEVER DO THIS IN REAL LIFE
-    require 'pry'
-    binding.pry
-end
-
 get '/' do
     erb :home
 end
