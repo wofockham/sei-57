@@ -6,3 +6,10 @@
     max-height: 30em;
 }
 
+label {
+    display: block;
+}
+
+body {
+    background-color: #ccd;
+}
