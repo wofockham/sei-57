@@ -5,3 +5,7 @@
 <p>Tunr is a community for people who love music</p>
 
 <p>We value you and we're not just trying to get your email address</p>
+
+<% if @current_user.present? %>
+    <h2>Welcome back <%= @current_user.email %></h2>
+<% end %>
