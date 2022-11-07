@@ -40,5 +40,13 @@ describe Bank do
             expect(bank.accounts['Isabel']).to eq 15
         end
     end
+
+    describe '#balance' do
+        it 'returns the balance for some particular account' do
+            bank.create_account 'Xavier', 7000
+            bal = bank.balance 'Xavier'
+            expect(bal).to eq 7000
+        end
+    end
 end
 
