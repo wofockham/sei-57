@@ -1,8 +1,11 @@
 const state = {
-    nextPage: 1
+    nextPage: 1,
+    lastPageReached: false
 };
 
 const searchFlickr = function (keywords) {
+    if (state.lastPageReached) return;
+
     console.log('Searching for', keywords);
 
     const flickrURL = 'https://api.flickr.com/services/rest';
@@ -16,6 +19,9 @@ const searchFlickr = function (keywords) {
         page: state.nextPage++
     }).done(showImages).done(function (info) {
         console.log(info);
+        if (info.photos.page >= info.photos.pages) {
+            state.lastPageReached = true;
+        }
     });
 };
 
@@ -47,6 +53,7 @@ $(document).ready(function () {
 
         $('#images').empty();
         state.nextPage = 1;
+        state.lastPageReached = false;
 
         const searchTerms = $('#query').val();
         searchFlickr(searchTerms);
