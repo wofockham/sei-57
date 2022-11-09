@@ -1,16 +1,11 @@
 const state = {
-    nextPage: 1,
-    requestInProgress: false
+    nextPage: 1
 };
 
 const searchFlickr = function (keywords) {
-    if (state.requestInProgress) return;
-
     console.log('Searching for', keywords);
 
     const flickrURL = 'https://api.flickr.com/services/rest';
-
-    state.requestInProgress = true;
 
     $.getJSON(flickrURL, {
         method: 'flickr.photos.search',
@@ -21,9 +16,7 @@ const searchFlickr = function (keywords) {
         page: state.nextPage++
     }).done(showImages).done(function (info) {
         console.log(info);
-        state.requestInProgress = false;
     });
-
 };
 
 const showImages = function (results) {
@@ -59,12 +52,12 @@ $(document).ready(function () {
         searchFlickr(searchTerms);
     });
 
-    // Twitchy!
+    const relaxedSearchFlickr = _.debounce(searchFlickr, 4000, true);
     $(window).on('scroll', function () {
         const scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
         if (scrollBottom <= 500) {
             const searchTerms = $('#query').val();
-            searchFlickr(searchTerms);
+            relaxedSearchFlickr(searchTerms);
         }
     });
 });
