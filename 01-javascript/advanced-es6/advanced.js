@@ -47,3 +47,20 @@ const quickAdd = (a, b) => a + b; // implicit return
 console.log( quickAdd(75, 3) );
 
 // Destructuring
+// A quick way of creating shortcuts to things inside objects.
+
+const gummo = {
+    name: 'Gummo Marx',
+    instrument: 'voice',
+    vice: 'being obscure'
+};
+
+console.log(`My name is ${ gummo.name } and I play the ${ gummo.instrument }`);
+
+// const name = gummo.name;
+// const instrument = gummo.instrument;
+// const vice = gummo.vice;
+
+const { name, instrument, vice } = gummo; // object destructuring
+
+console.log(`My name is ${ name } and I play the ${ instrument }`);
