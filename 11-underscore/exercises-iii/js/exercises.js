@@ -30,7 +30,7 @@ const firstIndex = _(numbers).findIndex(function (n) {
 console.log( firstIndex, numbers[firstIndex] );
 
 // - Turn ` arrToTransform ` into an object that looks like this - ` { age: NaN, location: undefined } `
-console.log( _.object( arrToTransform) );
+console.log( _.object( arrToTransform[0], arrToTransform[1] ) );
 
 // ## Remember!
 
