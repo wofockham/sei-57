@@ -16,6 +16,11 @@ def fibonacci_iterative(n)
 end
 
 def fibonacci_recursive(n)
+    if (n <= 2)
+        1
+    else
+        fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+    end
 end
 
 binding.pry
