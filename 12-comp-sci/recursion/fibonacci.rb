@@ -23,4 +23,28 @@ def fibonacci_recursive(n)
     end
 end
 
+# Make this faster:
+
+# Option 1: memoisation
+
+def fib_memo(n)
+    @fib ||= {} # assigns the empty hash to @fib if it doesn't already have a value
+    if @fib[n] # if we have previously saved this Fibonacci number
+        @fib[n] # return the value immediately
+    elsif n <= 2
+        1 # base case
+    else
+        @fib[n] = fib_memo(n-1) + fib_memo(n-2) # calculate and save this number for later use
+    end
+end
+
+# Option 2: iterative recursion
+def fib(n, a=1, b=1)
+    if n == 1 || n == 2 # base case
+        b
+    else
+        fib n-1, b, a+b # Almost mystical
+    end
+end
+
 binding.pry
