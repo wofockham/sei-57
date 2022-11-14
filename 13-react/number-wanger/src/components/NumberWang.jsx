@@ -14,7 +14,7 @@ class NumberWang extends Component {
         axios('http://numbersapi.com/random/trivia?json').then((response) => {
             this.setState({facts: [...this.state.facts, response.data.text]});
 
-            console.log("That's number wang!".split('').map(
+            console.log("That's numberwang!".split('').map(
                 (c) => Math.random() > 0.5 ? c.toUpperCase() : c
             ).join(''));
         });
@@ -24,7 +24,7 @@ class NumberWang extends Component {
         return (
             <div>
                 <button onClick={ this._fetchFact } title={ (777 * Math.random()).toFixed(3) }>
-                    Number wang
+                    Numberwang
                 </button>
                 <ul>
                     { this.state.facts.map((fact, i) => <li key={i}>{fact}</li>) }
