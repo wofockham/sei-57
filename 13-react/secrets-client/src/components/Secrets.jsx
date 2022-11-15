@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { Component, useState } from 'react';
-// TODO: import axios
+
+const SECRETS_URL = 'http://localhost:3000/secrets.json'; // Later: change this to the deployed (AKA Heroku) URL
 
 class Secrets extends Component {
     constructor() {
@@ -10,16 +12,21 @@ class Secrets extends Component {
         this.saveSecret = this.saveSecret.bind(this);
     }
 
-    saveSecret(content) {
-        // TODO: save this secret to the server
-        // TODO: poll the server for new secrets
-        
-        // fake secret object with the right shape
-        const secret = {
-            id: Math.random(),
-            content: content
+    componentDidMount() {
+        const fetchSecrets = () => {
+            axios(SECRETS_URL).then((response) => {
+                this.setState({secrets: response.data});
+                setTimeout(fetchSecrets, 4000); // polling
+            });
         };
-        this.setState({secrets: [secret, ...this.state.secrets]}); // spread operator
+
+        fetchSecrets();
+    }
+
+    saveSecret(content) {
+        axios.post(SECRETS_URL, { content: content }).then((response) => {
+            this.setState({secrets: [response.data, ...this.state.secrets]}); // Add the new secret to our state so it renders immediately
+        });
     }
 
     render() {
@@ -42,11 +49,12 @@ const SecretForm = (props) => {
     const _handleSubmit = (e) => {
         e.preventDefault();
         props.onSubmit(content);
+        setContent(''); // empty the textarea
     }
 
     return (
         <form onSubmit={ _handleSubmit }>
-            <textarea onInput={ _handleInput } required></textarea>
+            <textarea onInput={ _handleInput } required value={ content }></textarea>
             <input type="submit" value="Tell" />
         </form>
     );
