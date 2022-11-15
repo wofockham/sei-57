@@ -1,5 +1,7 @@
 import Clickr from './Clickr';
 import Echo from './Echo';
+import RandomNumberFact from './RandomNumberFact';
+import NumberFact from './NumberFact';
 
 function App() {
   return (
@@ -7,6 +9,8 @@ function App() {
       <h1>React Hook Examples</h1>
       <Clickr />
       <Echo />
+      <RandomNumberFact />
+      <NumberFact />
     </div>
   );
 }
