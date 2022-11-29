@@ -1,0 +1,16 @@
+{
+  "name": "don-martin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "scrape": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
