@@ -1,3 +1,4 @@
+const fs = require('fs');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -23,7 +24,8 @@ axios.get(sourceURL, {headers: {'Accept-Encoding': '*'}}).then((response) => {
         entries.push(entry);
     });
 
-    console.log(entries);
-    // save the objects in a file
+    fs.writeFile('./martin.json', JSON.stringify(entries, null, 2), () => {
+        console.log(`martin.json saved: ${ entries.length } entries`);
+    });
 });
 
