@@ -1,16 +1,14 @@
-'use strict';
-
-var state = {
+const state = {
     nextPage: 1,
     lastPageReached: false
 };
 
-var searchFlickr = function searchFlickr(keywords) {
+const searchFlickr = function (keywords) {
     if (state.lastPageReached) return;
 
     console.log('Searching for', keywords);
 
-    var flickrURL = 'https://api.flickr.com/services/rest';
+    const flickrURL = 'https://api.flickr.com/services/rest';
 
     $.getJSON(flickrURL, {
         method: 'flickr.photos.search',
@@ -27,16 +25,25 @@ var searchFlickr = function searchFlickr(keywords) {
     });
 };
 
-var showImages = function showImages(results) {
-    var urls = _(results.photos.photo).map(generateURL);
+const showImages = function (results) {
+    const urls = _(results.photos.photo).map(generateURL);
     _(urls).each(function (url) {
-        var $img = $('<img>', { src: url });
+        const $img = $('<img>', {src: url});
         $img.appendTo('#images');
     });
 };
 
-var generateURL = function generateURL(p) {
-    return ['http://farm', p.farm, '.static.flickr.com/', p.server, '/', p.id, '_', p.secret, '_q.jpg' // change 'q' to something else for different sizes (see documentation)
+const generateURL = function (p) {
+    return [
+        'http://farm',
+        p.farm,
+        '.static.flickr.com/',
+        p.server,
+        '/',
+        p.id,
+        '_',
+        p.secret,
+        '_q.jpg' // change 'q' to something else for different sizes (see documentation)
     ].join('');
 };
 
@@ -48,15 +55,15 @@ $(document).ready(function () {
         state.nextPage = 1;
         state.lastPageReached = false;
 
-        var searchTerms = $('#query').val();
+        const searchTerms = $('#query').val();
         searchFlickr(searchTerms);
     });
 
-    var relaxedSearchFlickr = _.debounce(searchFlickr, 4000, true);
+    const relaxedSearchFlickr = _.debounce(searchFlickr, 4000, true);
     $(window).on('scroll', function () {
-        var scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+        const scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
         if (scrollBottom <= 500) {
-            var searchTerms = $('#query').val();
+            const searchTerms = $('#query').val();
             relaxedSearchFlickr(searchTerms);
         }
     });
