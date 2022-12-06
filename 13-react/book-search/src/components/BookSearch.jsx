@@ -1,50 +1,35 @@
+import React, { useState } from 'react';
 import axios from 'axios';
-import React, { Component } from 'react';
 
-class BookSearch extends Component {
-    constructor() {
-        super();
-        this.state = {
-            query: '',
-            cover: null
-        };
-        this._handleInput = this._handleInput.bind(this);
-        this._handleSubmit = this._handleSubmit.bind(this);
-    }
+const BookSearch = () => {
+    const [query, setQuery] = useState('');
+    const [cover, setCover] = useState(null);
 
-    _handleInput (event) {
-        this.setState({query: event.target.value, cover: null }); // asynchronous
-    }
-
-    async _handleSubmit (event) {
+    const _search = async (event) => {
         event.preventDefault();
-        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=title:${ this.state.query }`);
-        const cover = response.data.items[0].volumeInfo.imageLinks.thumbnail;
-        this.setState({cover: cover});
-    }
+        const { data } = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=title:${ query }`);
+        setCover(data.items[0].volumeInfo.imageLinks.thumbnail);
+    };
 
-    render() {
-        const { cover, query } = this.state;
-        return (
-            <div>
-                <form onSubmit={ this._handleSubmit }>
-                    <label>
-                        Book title:
-                        <input
-                            type="search"
-                            placeholder="Jaws"
-                            autoFocus
-                            required
-                            onChange={ this._handleInput }
-                        />
-                    </label>
+    return (
+        <div>
+            <form onSubmit={ _search }>
+                <label>
+                    Book title:
+                    <input
+                        type="search"
+                        placeholder="Jaws"
+                        autoFocus
+                        required
+                        onChange={ (e) => setQuery(e.target.value) }
+                    />
+                </label>
+                <button>Search</button>
+            </form>
 
-                    <button>Search</button>
-                </form>
-                { cover && <img src={ cover } alt={ query } /> }
-            </div>
-        );
-    }
-}
+            { cover && <img src={ cover } alt={ query } /> }
+        </div>
+    );
+};
 
 export default BookSearch;
